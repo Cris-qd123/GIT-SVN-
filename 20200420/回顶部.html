@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>回顶部</title>
+    <style>
+        html,
+        body {
+            height: 1000%;
+            background: -webkit-linear-gradient(top left, red, green, blue, orange, pink);
+        }
+
+        #GOTO {
+            position: fixed;
+            right: 0;
+            bottom: 100px;
+            width: 80px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+
+            display: none;
+        }
+        div {
+            width: 300px;
+            height: 300px;
+            margin: 100px 0;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="GOTO">回到顶部</button>
+    <div></div>
+    <script>
+        let GOTO = document.querySelector('#GOTO');
+        GOTO.onclick = function () {
+            let winHeight=document.documentElement.clientHeight,
+                h=document.documentElement.scrollTop+document.documentElement.clientHeight,
+                t=document.documentElement.scrollTop,
+                T=t/(1000/20);
+            if (h>=winHeight){
+                let timer=setInterval(() => {
+                    t-=T;
+                    if(t<=0){
+                        t=0;
+                        clearInterval(timer);
+                    }
+                    document.documentElement.scrollTop=t;
+
+                }, 20);
+            } 
+        };
+        window.onscroll=function(){
+            let winHeight=document.documentElement.clientHeight,
+                h=document.documentElement.scrollTop+document.documentElement.clientHeight;
+            if (h>winHeight){
+                GOTO.style.display='block';
+            }else{
+                GOTO.style.display='none';
+            }
+        };
+    </script>
+</body>
+
+</html>
